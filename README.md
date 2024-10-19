@@ -40,5 +40,5 @@
 ### Repositories
    - Android App Repo: https://github.com/yourusername/parkavail.git
    - Backend API Repo: https://github.com/godlykmathews/ParkAvailAltas
-   - Admin Panel Repo: https://github.com/godlykmathews/atlasParkavailAdmin
+   - Admin Panel Repo: https://github.com/godlykmathews/ParkAvailAdmin
    
