@@ -38,7 +38,7 @@
 - **Smart Notifications**: Alerts when parking becomes available or is about to expire.
 
 ### Repositories
-   - Android App Repo: https://github.com/yourusername/parkavail.git .
+   - Android App Repo: https://github.com/yourusername/parkavail.git
    - Backend API Repo: https://github.com/godlykmathews/ParkAvailAltas
    - Admin Panel Repo: https://github.com/godlykmathews/atlasParkavailAdmin
    
