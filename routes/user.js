@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
   let user=req.session.user
 
   productHelper.getAllProducts().then((products) => {
-    res.render('user/view-products', { products,user});
+    res.render('user/view-place', { products,user});
   })
 });
 

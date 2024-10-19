@@ -1,4 +1,3 @@
 module.exports={
-    PRODUCT_COLLECTION:'ParkingSpot',
-    USER_COLLECTION:'user'
+    PRODUCT_COLLECTION:'parkingspots'
 }

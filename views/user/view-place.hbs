@@ -3,14 +3,15 @@
             <div class="row">
                 {{#each products}}
                 <div class="col-md-3 p-3">
-                    <div class="card" style="width: 15rem; height:28rem">
-                        <img class="card-img-top"
-                            src="/product-images/{{this._id}}.jpg"
+                    <div class="card" style="width: 15rem; height:25rem">
+                        <img class="card-img-top img-fluid"
+                            style="object-fit: cover; height: 15rem;"
+                            src="{{this.image}}"
                             alt="Card image cap" style="">
                         <div class="card-body">
                             <h5 class="card-title">{{this.name}}</h5>
-                            <p class="card-text">{{this.description}}</p>
-                            <a href="#" class="btn btn-primary">Add to cart</a>
+                            <p class="card-text">Rs. {{this.price}}</p>
+                            <p class="card-text">Location: {{this.location}}</p>
                         </div>
                     </div>
                 </div>  

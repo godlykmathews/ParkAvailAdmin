@@ -1,17 +1,18 @@
 <section>
     <div class="container">
         <div class="row mt-4">
-            <a href="/admin/add-details" class="btn btn-success ml-auto">Add Places</a>
+            <a href="/admin/add-place" class="btn btn-success ml-auto">Add Places</a>
         </div>
         <table class="table mt-5">
             <thead>
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Location</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Image</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Total Slot</th>
+                    <th scope="col">Available Slot</th>
+                    <th scope="col">Image prev</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,10 +20,11 @@
                 <tr>
                     <th scope="row">{{@index}}</th>
                     <td>{{this.name}}</td>
-                    <td>{{this.category}}</td>
-                    <td>{{this.description}}</td>
+                    <td>{{this.price}}</td>
                     <td>{{this.location}}</td>
-                    <td><img style="width: 42px; height: 50px" src="/product-images/{{this._id}}.jpg" alt=""></td>
+                    <td>{{this.tslot}}</td>
+                    <td>{{this.aslot}}</td>
+                    <td><img style="width: 42px; height: 50px" src="{{this.image}}" alt=""></td>
                 </tr>
                 {{/each}}
             </tbody>

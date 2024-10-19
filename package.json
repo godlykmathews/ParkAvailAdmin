@@ -1,9 +1,9 @@
 {
-  "name": "shopping-cart",
+  "name": "parkavail",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -18,6 +18,7 @@
     "inversify": "^6.0.1",
     "mongodb": "^4.12.1",
     "morgan": "~1.9.1",
+    "nodemon": "^3.1.7",
     "promise": "^8.3.0"
   }
 }
