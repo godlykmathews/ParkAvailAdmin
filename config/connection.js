@@ -1,18 +1,20 @@
-const mongoClient=require('mongodb').MongoClient
-const state={
-    db:null
-}
-module.exports.connect=function(done){
-    const url='mongodb+srv://workgkm:thisisgkm@clusterparkingapp.htl7b.mongodb.net/?retryWrites=true&w=majority&appName=ClusterParkingApp'
-    const dbname='test'
+const MongoClient = require('mongodb').MongoClient;
 
-    mongoClient.connect(url,(err,data)=>{
-        if(err) return done(err)
-        state.db=data.db(dbname)
-        done()
-    })
-}
+var state = {
+    db: null
+};
 
-module.exports.get=function(){
-    return state.db
-}
+module.exports.connect = function(done) {
+    var url = 'mongodb+srv://workgkm:thisisgkm@clusterparkingapp.htl7b.mongodb.net/?retryWrites=true&w=majority&appName=ClusterParkingApp';
+    var dbname = 'yourDatabaseName';
+
+    MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client) {
+        if (err) return done(err);
+        state.db = client.db(dbname);
+        done();
+    });
+};
+
+module.exports.get = function() {
+    return state.db;
+};
