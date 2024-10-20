@@ -1,6 +1,6 @@
-var db = require('../config/connection');
-var collection = require('../config/collections');
-var objectId = require('mongodb').ObjectId;
+const db = require('../config/connection');
+const collection = require('../config/collections');
+const objectId = require('mongodb').ObjectId;
 
 module.exports = {
     addProduct: (product, callback) => {
