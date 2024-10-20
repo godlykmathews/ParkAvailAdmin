@@ -3,7 +3,7 @@ const state={
     db:null
 }
 module.exports.connect=function(done){
-    const url='mongodb://127.0.0.1:27017'
+    const url='mongodb+srv://workgkm:thisisgkm@clusterparkingapp.htl7b.mongodb.net/?retryWrites=true&w=majority&appName=ClusterParkingApp'
     const dbname='test'
 
     mongoClient.connect(url,(err,data)=>{
