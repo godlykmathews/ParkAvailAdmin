@@ -74,11 +74,11 @@ module.exports = {
     
             dbConnection.collection(collection.PRODUCT_COLLECTION)
                 .updateOne(
-                    { _id: new ObjectId(placeId) },
+                    { _id: new ObjectId(placeId) }, // Find the place by ID
                     {
                         $set: {
-                            ...updatedData,
-                            updatedAt: new Date()  // Optional: Track the update time
+                            ...updatedData, // Update the fields with new data
+                            updatedAt: new Date()  // Optionally track update time
                         }
                     }
                 )
@@ -90,5 +90,6 @@ module.exports = {
                 });
         });
     }
+    
     
 };

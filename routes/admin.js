@@ -75,10 +75,9 @@ router.get('/delete-place/:id', async (req, res) => {
 router.get('/edit-place/:id', async (req, res) => {
     try {
         const placeId = req.params.id;
-        const dbConnection = db.get();
-        const place = await dbConnection.collection(collection.PRODUCT_COLLECTION).findOne({ _id: ObjectId(placeId) });
+        const product = await productHelper.getProductById(placeId);
 
-        if (!place) {
+        if (!product) {
             req.session.message = {
                 type: 'error',
                 text: 'Place not found'
@@ -86,25 +85,31 @@ router.get('/edit-place/:id', async (req, res) => {
             return res.redirect('/admin');
         }
 
-        res.render('admin/edit-place', { place, admin: true });
-    } catch (err) {
+        res.render('admin/edit-place', {
+            product,
+            admin: true
+        });
+    } catch (error) {
+        console.error('Error loading edit page:', error);
         req.session.message = {
             type: 'error',
-            text: 'Error fetching place details'
+            text: 'Error loading edit page'
         };
         res.redirect('/admin');
     }
 });
 
+
 // Update place
 router.post('/edit-place/:id', async (req, res) => {
     try {
         const placeId = req.params.id;
+        // Update the product data with the submitted form data
         await productHelper.updateProduct(placeId, req.body);
 
+        // Check if an image file is uploaded and handle it
         const imageFile = req.files?.image;
         if (imageFile) {
-            // Update image if a new one is uploaded
             await imageFile.mv('./public/product-images/' + placeId + '.jpg');
         }
 
@@ -112,15 +117,16 @@ router.post('/edit-place/:id', async (req, res) => {
             type: 'success',
             text: 'Place updated successfully'
         };
-        res.redirect('/admin');
+        res.redirect('/admin');  // Redirect back to the admin page after update
     } catch (error) {
         req.session.message = {
             type: 'error',
             text: 'Failed to update place'
         };
-        res.redirect(`/admin/edit-place/${placeId}`);
+        res.redirect(`/admin/edit-place/${placeId}`);  // Stay on the edit page if there's an error
     }
 });
+
 
 
 module.exports = router;
