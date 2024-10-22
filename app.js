@@ -44,15 +44,6 @@ app.use(session({
     cookie: { maxAge: 600000 } // Cookie expiration time
 }));
 
-db.connect((err) => {
-    if (err) {
-        console.error('Unable to connect to database:', err);
-        process.exit(1);
-    } else {
-        console.log('Connected to database');
-    }
-});
-
 // Middleware to pass session messages to views
 app.use((req, res, next) => {
     res.locals.message = req.session.message;
@@ -77,11 +68,19 @@ app.use((err, req, res, next) => {
     res.render('error');
 });
 
-// Set port and start server
-const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-const server = app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+// Connect to the database and start the server
+db.connect((err) => {
+    if (err) {
+        console.error('Unable to connect to database:', err);
+        process.exit(1);
+    } else {
+        console.log('Connected to database');
+        const port = normalizePort(process.env.PORT || '3000');
+        app.set('port', port);
+        const server = app.listen(port, () => {
+            console.log(`Server running on port ${port}`);
+        });
+    }
 });
 
 module.exports = app;
