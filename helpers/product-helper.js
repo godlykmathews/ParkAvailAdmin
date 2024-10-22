@@ -63,33 +63,6 @@ module.exports = {
                     reject(err);
                 });
         });
-    },
-
-    updateProduct: (placeId, updatedData) => {
-        return new Promise((resolve, reject) => {
-            const dbConnection = db.get();
-            if (!dbConnection) {
-                return reject(new Error('Database not connected'));
-            }
-    
-            dbConnection.collection(collection.PRODUCT_COLLECTION)
-                .updateOne(
-                    { _id: new ObjectId(placeId) }, // Find the place by ID
-                    {
-                        $set: {
-                            ...updatedData, // Update the fields with new data
-                            updatedAt: new Date()  // Optionally track update time
-                        }
-                    }
-                )
-                .then((response) => {
-                    resolve(response);
-                })
-                .catch((err) => {
-                    reject(err);
-                });
-        });
-    }
-    
+    }    
     
 };
