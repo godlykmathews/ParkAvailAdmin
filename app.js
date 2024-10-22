@@ -11,34 +11,52 @@ var usersRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 
 var app = express();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('hbs', hbs.engine({ extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layout/', partialsDir: __dirname + '/views/partials/' }));
+app.engine('hbs', hbs.engine({
+  extname: 'hbs',
+  defaultLayout: 'layout',
+  layoutsDir: __dirname + '/views/layout/',
+  partialsDir: __dirname + '/views/partials/'
+}));
 app.set('view engine', 'hbs');
+
+// middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
-app.use(session({secret:"Key",cookie:{maxAge:600000}}))
+
+// session middleware with updated options
+app.use(session({
+  secret: "secrKey", // update this to a secure secret in production
+  resave: false, // prevents session from being saved if unmodified
+  saveUninitialized: false, // prevents saving uninitialized sessions
+  cookie: { maxAge: 600000 } // cookie settings
+}));
 
 
+// database connection
 db.connect((err) => {
   if (err) {
-      console.error('Unable to connect to database:', err);
-      process.exit(1);
+    console.error('Unable to connect to database:', err);
+    process.exit(1); // exit the application if connection fails
   } else {
-      console.log('Connected to database');
+    console.log('Connected to database');
   }
 });
 
+// set locals for session messages
 app.use((req, res, next) => {
   res.locals.message = req.session.message;
   delete req.session.message;
   next();
 });
 
+// routes
 app.use('/', usersRouter);
 app.use('/admin', adminRouter);
 
@@ -59,3 +77,11 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+
+// start server only if not in a serverless environment
+if (!process.env.VERCEL) {
+  const port = process.env.PORT || 3001;
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}

@@ -1,6 +1,6 @@
 const db = require('../config/connection');
 const collection = require('../config/collections');
-const objectId = require('mongodb').ObjectId;
+const { ObjectId } = require('mongodb'); // Using destructuring for better clarity
 
 module.exports = {
     addProduct: (product) => {
@@ -49,8 +49,9 @@ module.exports = {
                 return reject(new Error('Database not connected'));
             }
 
+            // Ensure ObjectId is created properly
             dbConnection.collection(collection.PRODUCT_COLLECTION)
-                .deleteOne({ _id: objectId(placeId) })
+                .deleteOne({ _id: new ObjectId(placeId) }) // Using 'new' here
                 .then((response) => {
                     if (response.deletedCount === 1) {
                         resolve(response);

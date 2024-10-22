@@ -27,8 +27,8 @@ router.get('/add-place', function(req, res) {
 // Add new place
 router.post('/add-place', async (req, res) => {
     try {
-        const imageFile = req.files?.image;
-        await productHelper.addProduct(req.body);
+        const imageFile = req.files?.image; // Handle image file
+        const insertedId = await productHelper.addProduct(req.body); // Get inserted ID
         
         if (imageFile) {
             // If you want to handle image upload
