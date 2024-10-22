@@ -18,17 +18,10 @@ router.get('/add-place',function(req,res){
 
 router.post('/add-place', (req, res) => {
   productHelper.addProduct(req.body, (id) => {
-    let image = req.files.image;
-    image.mv('./public/product-images/' + id + '.jpg', (err) => {
-      if (!err) {
-        res.send('<script>alert("Successful! : New Place Added"); window.location.href = "/admin/add-place";</script>');
-      } else {
-        console.log(err);
-        res.status(500).send('Error occurred while uploading image');
-      }
-    });
+    res.send('<script>alert("Successful! : New Place Added"); window.location.href = "/admin/add-place";</script>');
   });
 });
+
 
 router.get('/delete-place/:id', (req, res) => {
   let placeId = req.params.id;
