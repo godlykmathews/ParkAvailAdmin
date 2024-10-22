@@ -6,6 +6,11 @@ var productHelper = require('../helpers/product-helper');
 router.get('/', async (req, res) => {
     try {
         let products = await productHelper.getAllProducts();
+
+        products = products.map((product, index) => {
+            return { ...product, counter: index + 1 };
+        });
+
         res.render('admin/view-place', { 
             products,
             admin: true

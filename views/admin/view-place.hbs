@@ -20,7 +20,7 @@
                 <tbody>
                     {{#each products}}
                     <tr>
-                        <th scope="row">{{inc @index}}</th>
+                        <th scope="row">{{this.counter}}</th>
                         <td>{{this.name}}</td>
                         <td>{{this.price}}</td>
                         <td>{{this.location}}</td>
