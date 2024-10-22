@@ -71,4 +71,56 @@ router.get('/delete-place/:id', async (req, res) => {
     }
 });
 
+// Render edit place form
+router.get('/edit-place/:id', async (req, res) => {
+    try {
+        const placeId = req.params.id;
+        const dbConnection = db.get();
+        const place = await dbConnection.collection(collection.PRODUCT_COLLECTION).findOne({ _id: ObjectId(placeId) });
+
+        if (!place) {
+            req.session.message = {
+                type: 'error',
+                text: 'Place not found'
+            };
+            return res.redirect('/admin');
+        }
+
+        res.render('admin/edit-place', { place, admin: true });
+    } catch (err) {
+        req.session.message = {
+            type: 'error',
+            text: 'Error fetching place details'
+        };
+        res.redirect('/admin');
+    }
+});
+
+// Update place
+router.post('/edit-place/:id', async (req, res) => {
+    try {
+        const placeId = req.params.id;
+        await productHelper.updateProduct(placeId, req.body);
+
+        const imageFile = req.files?.image;
+        if (imageFile) {
+            // Update image if a new one is uploaded
+            await imageFile.mv('./public/product-images/' + placeId + '.jpg');
+        }
+
+        req.session.message = {
+            type: 'success',
+            text: 'Place updated successfully'
+        };
+        res.redirect('/admin');
+    } catch (error) {
+        req.session.message = {
+            type: 'error',
+            text: 'Failed to update place'
+        };
+        res.redirect(`/admin/edit-place/${placeId}`);
+    }
+});
+
+
 module.exports = router;

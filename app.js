@@ -10,6 +10,13 @@ const session = require('express-session');
 const usersRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
 
+const Handlebars = require('handlebars'); // Handlebars helpers
+
+// Registering a custom helper to increment values
+Handlebars.registerHelper("inc", function(value, options) {
+    return parseInt(value) + 1;
+});
+
 const app = express();
 
 // Function to normalize port
