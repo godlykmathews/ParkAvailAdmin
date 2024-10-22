@@ -3,10 +3,10 @@
             <div class="row">
                 {{#each products}}
                 <div class="col-md-3 p-3">
-                    <div class="card" style="width: 15rem; height:25rem">
+                    <div class="card" style="width: 15rem; height:30rem">
                         <img class="card-img-top img-fluid"
-                            style="object-fit: cover; height: 15rem;"
-                            src="/product-images/{{this._id}}.jpg"
+                            style="object-fit: cover; height: auto;"
+                            src="{{this.image}}"
                             alt="Card image cap" style="">
                         <div class="card-body">
                             <h5 class="card-title">{{this.name}}</h5>

@@ -10,13 +10,13 @@ module.exports = {
                 return reject(new Error('Database not connected'));
             }
 
+            product.createdAt = new Date();
+            
             dbConnection.collection(collection.PRODUCT_COLLECTION).insertOne(product)
                 .then((data) => {
-                    console.log(data);
                     resolve(data.insertedId);
                 })
                 .catch((err) => {
-                    console.error('Error occurred while adding product:', err);
                     reject(err);
                 });
         });
@@ -28,13 +28,15 @@ module.exports = {
             if (!dbConnection) {
                 return reject(new Error('Database not connected'));
             }
-
-            dbConnection.collection(collection.PRODUCT_COLLECTION).find().toArray()
+            
+            dbConnection.collection(collection.PRODUCT_COLLECTION)
+                .find()
+                .sort({ createdAt: -1 })
+                .toArray()
                 .then((products) => {
                     resolve(products);
                 })
                 .catch((err) => {
-                    console.error('Error occurred while fetching products:', err);
                     reject(err);
                 });
         });
@@ -47,18 +49,16 @@ module.exports = {
                 return reject(new Error('Database not connected'));
             }
 
-            dbConnection.collection(collection.PRODUCT_COLLECTION).deleteOne({ _id: objectId(placeId) })
+            dbConnection.collection(collection.PRODUCT_COLLECTION)
+                .deleteOne({ _id: objectId(placeId) })
                 .then((response) => {
                     if (response.deletedCount === 1) {
-                        console.log('Place deleted successfully:', response);
                         resolve(response);
                     } else {
-                        console.error('Place not found:', response);
                         reject(new Error('Place not found'));
                     }
                 })
                 .catch((err) => {
-                    console.error('Error occurred while deleting place:', err);
                     reject(err);
                 });
         });
