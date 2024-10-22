@@ -1,4 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
+
+const url = process.env.MONGODB_URL; // Set this in your .env file
+
 
 const state = {
     db: null
