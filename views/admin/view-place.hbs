@@ -11,9 +11,9 @@
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
                         <th scope="col">Location</th>
-                        <th scope="col">Total Slot</th>
-                        <th scope="col">Available Slot</th>
-                        <th scope="col">Image prev</th>
+                        <th scope="col">Slots Available</th>
+                        <th scope="col">Image preview</th>
+                        <th scope="col">Modified Date</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -30,12 +30,12 @@
                         <td>{{this.name}}</td>
                         <td>{{this.price}}</td>
                         <td>{{this.location}}</td>
-                        <td>{{this.tslots}}</td>
-                        <td>{{this.aslots}}</td>
+                        <td>{{this.aslots}}/{{this.tslots}}</td>
                         <td><img class="img-fluid" style="max-width: 42px; height: auto;" src="{{this.image}}" alt=""></td>
+                        <td>{{formatDate this.createdAt}}</td>
                         <td>
                             <div class="d-flex justify-content-around">
-                                <a href="/admin/edit-place/" class="btn btn-primary btn-sm mr-2"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="/admin/edit-place/{{this._id}}" class="btn btn-primary btn-sm mr-2"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="/admin/delete-place/{{this._id}}" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm ml-2"><i class="fa-solid fa-trash"></i></a>
                             </div>
                         </td>
@@ -52,8 +52,7 @@
                         <h5 class="card-title">{{this.name}}</h5>
                         <p class="card-text"><strong>Price:</strong> {{this.price}}</p>
                         <p class="card-text"><strong>Location:</strong> {{this.location}}</p>
-                        <p class="card-text"><strong>Total Slots:</strong> {{this.tslots}}</p>
-                        <p class="card-text"><strong>Available Slots:</strong> {{this.aslots}}</p>
+                        <p class="card-text"><strong>Available Slots:</strong> {{this.aslots}}/{{this.tslots}}</p>
                         <img class="img-fluid mb-2" style="max-width: 100px; height: auto;" src="{{this.image}}" alt="">
                          <div class="d-flex justify-content-around">
                             {{#if this.availability}}
@@ -61,7 +60,7 @@
                             {{else}}
                                 <button class="btn btn-danger btn-sm"  data-toggle="tooltip" title="Not Available" >Not Available</button>
                             {{/if}}
-                                <a href="/admin/edit-place/" class="btn btn-primary btn-sm mr-2"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="/admin/edit-place/{{this._id}}" class="btn btn-primary btn-sm mr-2"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="/admin/delete-place/{{this._id}}" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm ml-2"><i class="fa-solid fa-trash"></i></a>
                         </div>
                     </div>

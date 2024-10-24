@@ -12,9 +12,11 @@ const adminRouter = require('./routes/admin');
 
 const Handlebars = require('handlebars'); // Handlebars helpers
 
-// Registering a custom helper to increment values
-Handlebars.registerHelper("inc", function(value, options) {
-    return parseInt(value) + 1;
+
+// Registering a custom helper to format dates
+Handlebars.registerHelper('formatDate', function(date) {
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
 });
 
 const app = express();

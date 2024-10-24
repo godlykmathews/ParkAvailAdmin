@@ -11,15 +11,18 @@ module.exports = {
             }
 
             product.createdAt = new Date();
-            if(product.availableButton === 'on'){
-                product.availability = true;
-            }else{
-                product.availability = false;
-            }
-            
+            product.availability = product.availableButton === 'on';
+
             dbConnection.collection(collection.PRODUCT_COLLECTION).insertOne(product)
                 .then((data) => {
-                    resolve(data.insertedId);
+                    const productId = data.insertedId;
+                    const imagePath = '/product-images/' + productId + '.jpg';
+                    return dbConnection.collection(collection.PRODUCT_COLLECTION).updateOne(
+                        { _id: productId },
+                        { $set: { image: imagePath } }
+                    ).then(() => {
+                        resolve(productId);
+                    });
                 })
                 .catch((err) => {
                     reject(err);
@@ -33,7 +36,7 @@ module.exports = {
             if (!dbConnection) {
                 return reject(new Error('Database not connected'));
             }
-            
+
             dbConnection.collection(collection.PRODUCT_COLLECTION)
                 .find()
                 .sort({ createdAt: -1 })
@@ -68,6 +71,5 @@ module.exports = {
                     reject(err);
                 });
         });
-    }    
-    
+    }
 };
