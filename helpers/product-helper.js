@@ -11,6 +11,11 @@ module.exports = {
             }
 
             product.createdAt = new Date();
+            if(product.availableButton === 'on'){
+                product.availability = true;
+            }else{
+                product.availability = false;
+            }
             
             dbConnection.collection(collection.PRODUCT_COLLECTION).insertOne(product)
                 .then((data) => {

@@ -20,7 +20,13 @@
                 <tbody>
                     {{#each products}}
                     <tr>
-                        <th scope="row">{{this.counter}}</th>
+                        <th scope="row">
+                            {{#if this.availability}}
+                                <button class="btn btn-success btn-sm"  data-toggle="tooltip" title="Available" >{{this.counter}}</button>
+                            {{else}}
+                                <button class="btn btn-danger btn-sm"  data-toggle="tooltip" title="Not Available" >{{this.counter}}</button>
+                            {{/if}}
+                        </th>
                         <td>{{this.name}}</td>
                         <td>{{this.price}}</td>
                         <td>{{this.location}}</td>
@@ -50,6 +56,11 @@
                         <p class="card-text"><strong>Available Slots:</strong> {{this.aslots}}</p>
                         <img class="img-fluid mb-2" style="max-width: 100px; height: auto;" src="{{this.image}}" alt="">
                          <div class="d-flex justify-content-around">
+                            {{#if this.availability}}
+                                <button class="btn btn-success btn-sm"  data-toggle="tooltip" title="Available" >Available</button>
+                            {{else}}
+                                <button class="btn btn-danger btn-sm"  data-toggle="tooltip" title="Not Available" >Not Available</button>
+                            {{/if}}
                                 <a href="/admin/edit-place/" class="btn btn-primary btn-sm mr-2"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="/admin/delete-place/{{this._id}}" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm ml-2"><i class="fa-solid fa-trash"></i></a>
                         </div>
